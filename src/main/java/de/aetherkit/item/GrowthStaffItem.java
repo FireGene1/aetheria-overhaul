@@ -44,7 +44,7 @@ public class GrowthStaffItem extends Item {
 
         if (grown == 0) return ActionResultType.FAIL;
 
-        level.playSound(null, center, SoundEvents.BONE_MEAL_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        level.playSound(null, center, SoundEvents.GRASS_PLACE, SoundCategory.PLAYERS, 1.0F, 1.0F);
         Hand hand = ctx.getHand();
         ctx.getItemInHand().hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
         player.getCooldowns().addCooldown(this, 10);

@@ -3,6 +3,7 @@ package de.aetherkit.client;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import de.aetherkit.AetherKit;
 import de.aetherkit.entity.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.PigModel;
@@ -99,7 +100,7 @@ public final class ModRenderers {
         private static final ResourceLocation TEX = tex("aether_warden");
 
         public WardenRenderer(EntityRendererManager manager) {
-            super(manager, new BipedModel<>(0.0F, 0.0F, 64, 64), 1.1F);
+            super(manager, new BipedModel<>(RenderType::entityCutoutNoCull, 0.0F, 0.0F, 64, 64), 1.1F);
         }
 
         @Override
