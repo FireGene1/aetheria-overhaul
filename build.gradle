@@ -35,6 +35,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+            args 'nogui'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {

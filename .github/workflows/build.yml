@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,3 +41,39 @@ jobs:
         with:
           name: aetheria-overhaul-jar
           path: build/libs/*.jar
+
+      - name: Release mit .jar aktualisieren
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-build
+          name: Aetheria Overhaul – neuester Build
+          prerelease: true
+          files: build/libs/*.jar
+          body: Automatisch gebaut aus dem neuesten Stand. Forge 1.16.5 (36.2+).
+
+      - name: Server-Test (Mod laden + Welt generieren)
+        run: |
+          mkdir -p run
+          echo "eula=true" > run/eula.txt
+          ./gradlew runServer --no-daemon > server.log 2>&1 &
+          for i in $(seq 1 120); do
+            sleep 5
+            if grep -q 'Done (' server.log; then echo "SERVER GESTARTET"; break; fi
+            if grep -qE 'Crash report saved|---- Minecraft Crash Report|BUILD FAILED|Failed to start the minecraft server' server.log; then echo "ABSTURZ"; break; fi
+          done
+          sleep 5
+          pkill -f runServer || true
+          pkill -f java || true
+          echo "===== Warnungen/Fehler der Mod ====="
+          grep -iE "aetherkit|exception|error|crash" server.log | grep -viE "Loading Mod|DEBUG" | head -150 || true
+          grep -q 'Done (' server.log
+
+      - name: Server-Log hochladen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-log
+          path: |
+            server.log
+            run/logs/
+            run/crash-reports/
