@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+
+[[mods]]
+modId="aetherkit"
+version="${file.jarVersion}"
+displayName="Aetheria Overhaul"
+logoFile="aetherkit_logo.png"
+authors="Du & Claude"
+description='''
+Ein Gameplay-Overhaul in einer Mod:
+- 3 neue Erzstufen (Aetherit, Emberit, Voidium) mit Werkzeugen, Rüstungen und Set-Boni
+- 5 neue Mobs und der Boss "Aetherwächter"
+- 6 neue Strukturen: Schreine, Lager, Wachtürme, Kristallgeoden, Katakomben, Wächter-Heiligtümer
+- Wegsteine (Schnellreise), Gräber, Rucksäcke, Herzkristalle, Aufzüge, Schutzlaternen
+- 3x3-Hammer, Holzfälleraxt, Vein-Mining, Magnetring, Inventar-Sortierung, Info-HUD und vieles mehr
+'''
+
+[[dependencies.aetherkit]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.aetherkit]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
